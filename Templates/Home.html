@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block head %}
+{{ block.super }}
+{% endblock head %}
+
+{% block body %}
+<h3>Welcome {{fname}}</h3>
+<div class="cat"
+    style="border: 2px solid black; background-color: beige; position: absolute; top: 100px; left: 10px;height: 700px;width: 450px;border-radius: 10px;">
+    <p>Categories</p>
+</div>
+<div class="Query col-md-5" style="padding: 0;">
+    <ul style="list-style-type: none; padding: 0; margin: 10px 500px;">
+        {% for event in EList %}
+        <li
+            style="border: 2px solid #000000; padding: 20px; margin-bottom: 20px; border-radius: 20px; width: 500px; height: 300px; background-color: beige; position: relative;">
+            <div>
+                Name: {{ event.name }} <br>
+                Querry: {{ event.desc }}<br>
+                Date: {{ event.date }}<br>
+            </div>
+            {% if event.answers.exists %}
+                        <ul class="answerList" style="list-style-type: none; padding: 0; margin-top: 20px;">
+                            <li style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; background-color: #f9f9f9;height: 150px;border-radius: 20px;">{{ event.answers.first.response }}</li>
+                        </ul>
+                    {% else %}
+                        <div class="answerList" style="list-style-type: none; padding: 0; margin-top: 20px;">
+                            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; background-color: #f9f9f9;height: 150px;border-radius: 20px;">
+                                <p>No answers available for this query.</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <!-- {% if event.answers.exists %}
+                    <ul class="answerList" style="list-style-type: none; padding: 0; margin-top: 20px;">
+                        <li style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; background-color: #f9f9f9;border-radius: 20px; overflow: auto; max-height: 150px;">{{ event.answers.first.response }}</li>
+                    </ul>
+                {% else %}
+                    <div class="answerList" style="list-style-type: none; padding: 0; margin-top: 20px;">
+                        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 5px; background-color: #f9f9f9; border-radius: 20px; overflow: auto; max-height: 150px;">
+                            <p>No answers available for this query.</p>
+                        </div>
+                    </div>
+                {% endif %}                 -->
+            <div class="allAnswer" style="position: absolute; bottom: 10px; right: 10px;">
+                <a href="{% url 'AllAnswers' query_id=event.query_id %}">View All Answer</a>
+            </div>
+            <div class="Answer" style="position: absolute; bottom: 10px; left: 20px;">
+                <a href="{% url 'AnsweringQuery' query_id=event.query_id %}">Answer this Query</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock body %}

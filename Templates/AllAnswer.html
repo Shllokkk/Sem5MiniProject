@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}All Answers{% endblock title %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; padding-top: 20px;">
+        <h2>Query Details</h2>
+        <div style="border: 2px solid #000000; padding: 20px; width: 500px; background-color: rgb(136, 238, 238); box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin: 20px;">
+            <p>Name: {{ query.name }}</p>
+            <p>Query: {{ query.desc }}</p>
+            <p>Date: {{ query.date }}</p>
+        </div>
+        <h2>All Answers</h2>
+        {% if answers %}
+            <div style="width: 500px;">
+                {% for answer in answers %}
+                    <div style="border: 2px solid #000000; padding: 20px; margin-top: 20px; background-color: beige;">
+                        <p>Response: {{ answer.response }}</p>
+                        <p>Date: {{ answer.date }}</p>
+                        <a href="#" onclick="openPopup('{{ answer.answer_id }}')">Do you want to Rate this answer?</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No answers found for this query.</p>
+        {% endif %}
+    </div>
+
+    <!-- Popup container -->
+    <div id="popupContainer" style="display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+        <div class="popupContent" style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
+            <span class="close" style="color: #aaa; float: right; font-size: 28px; font-weight: bold;">&times;</span>
+            <h2>Rate This Answer</h2>
+            <div id="ratingStars" name="ratingStars">
+                <span style="font-size: 30px; cursor: pointer;" onclick="setRating(1);">&#9733;</span>
+                <span style="font-size: 30px; cursor: pointer;" onclick="setRating(2);">&#9733;</span>
+                <span style="font-size: 30px; cursor: pointer;" onclick="setRating(3);">&#9733;</span>
+                <span style="font-size: 30px; cursor: pointer;" onclick="setRating(4);">&#9733;</span>
+                <span style="font-size: 30px; cursor: pointer;" onclick="setRating(5);">&#9733;</span>
+            </div>
+            <button id="submitRating" style="margin-top: 10px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Submit Rating</button>
+        </div>
+    </div>
+
+    <script>
+        var currentRating = 0;
+
+        function setRating(rating) {
+            currentRating = rating;
+            var stars = document.querySelectorAll('#ratingStars span');
+            stars.forEach(function(star, index) {
+                if (index < rating) {
+                    star.style.color = 'gold';
+                } else {
+                    star.style.color = 'black';
+                }
+            });
+        }
+
+        function openPopup(answerId) {
+        // Here you can use the answerId parameter as needed
+        // For example, you can access the answerId like this:
+        console.log("Answer ID:", answerId);
+        // You can also use it to perform other operations within this function
+        document.getElementById("popupContainer").style.display = "block";
+    }
+
+        document.getElementById("popupContainer").addEventListener("click", function(event) {
+            if (event.target == this || event.target.classList.contains("close")) {
+                this.style.display = "none"; // Hide the popup
+            }
+        });
+
+        document.getElementById("submitRating").addEventListener("click", function() {
+            // You can perform any action with the currentRating value here, such as sending it to a server
+            alert("You rated " + currentRating + " stars.");
+            document.getElementById("popupContainer").style.display = "none"; // Hide the popup after rating
+        });
+    </script>
+{% endblock body %}

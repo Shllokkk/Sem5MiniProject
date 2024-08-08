@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Login.css'%}"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  
+  </head>
+  <body>
+<main>
+  <header>
+    <h4>Login</h4>
+  </header>
+  <form method="post" action="/LogInButton">
+    {% csrf_token %}
+    <div class="form_wrapper">
+      <input id="input" type="text" required name="input">
+      <label for="input">Username</label>
+      <i class="material-icons">person</i>
+    </div>
+    <div class="form_wrapper">
+      <input id="password" type="password" required name="password">
+      <label for="password">Password</label>
+      <i class="material-icons">lock</i>
+    </div>
+    <button type="submit" class="btn btn-primary">Log In</button>
+    <div class="new_account">
+      Don't have account ? <a href="/SignUp">Sign up</a>
+    </div>
+  </form>
+</main>
+  </body>
+</html>

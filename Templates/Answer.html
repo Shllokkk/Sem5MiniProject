@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block head %}
+    {{ block.super }}
+{% endblock head %}
+
+{% block body %}
+    <div style="display: flex; justify-content: center; align-items: center; height: 80vh;">
+        <div style="border: 2px solid #000000; padding: 20px; width: 500px; background-color: rgb(136, 238, 238); box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <h2>Query Details</h2>
+            Name: {{ query.name }}<br>
+            Query: {{ query.desc }}<br>
+            Date: {{ query.date }}<br>
+            <form method="post" action="{% url 'Answered' query_id=query.query_id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="Answer">Answer This Query</label>
+                    <textarea class="form-control" id="response" name="response" placeholder="Answer.." style="height: 192px;" required></textarea>
+                  </div> 
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+        </div>
+    </div>
+{% endblock body %}

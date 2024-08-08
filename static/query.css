@@ -1,0 +1,6 @@
+.Query ul li {
+    display: inline-block; /* Force list items to display inline */
+    border: 1px solid black; /* Add a black border around each list item */
+    padding: 10px; /* Add padding to create space around the content */
+    margin-right: 10px; /* Add right margin to separate each list item */
+}
