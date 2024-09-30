@@ -39,13 +39,17 @@ class Answers(models.Model):
             f"Date:- {self.date},"
         )
 
-# class Rating(models.Model):
-#     answer = models.ForeignKey(Answers, on_delete=models.CASCADE)
-#     rating = models.FloatField()
-#     date = models.DateField(default=date.today)
+class Rating(models.Model):
+    rating = models.FloatField()  
+    answer = models.ForeignKey(Answers, related_name='ratings', on_delete=models.CASCADE)  
+    user_rated = models.ForeignKey(Signup, related_name='user_rated', on_delete=models.CASCADE) 
+    user_rater = models.EmailField() 
+    date = models.DateField(default=date.today)  
 
-#     def __str__(self):
-#         return str(self.rating)
-
+    def __str__(self):
+        return (
+            f"Rating: {self.rating_value} for Answer ID: {self.answer.answer_id} "
+            f"by User: {self.user_rater}"
+        )
     
        

@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'FirstSample.urls'
+ROOT_URLCONF = 'DbitTechForum.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'FirstSample.wsgi.application'
+WSGI_APPLICATION = 'DbitTechForum.wsgi.application'
 
 
 # Database
